@@ -1,4 +1,4 @@
-package com.gustavo.find.controllers;
+package com.gustavo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gustavo.findCar.Aluguel;
-import com.gustavo.findCar.Cliente;
+import com.gustavo.domains.Aluguel;
+import com.gustavo.domains.Cliente;
 import com.gustavo.service.AluguelService;
 import com.gustavo.service.ClienteService;
 

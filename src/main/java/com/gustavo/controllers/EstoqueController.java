@@ -1,4 +1,4 @@
-package com.gustavo.find.controllers;
+package com.gustavo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gustavo.findCar.Estoque;
-import com.gustavo.findCar.Funcionario;
+import com.gustavo.domains.Estoque;
+import com.gustavo.domains.Funcionario;
 import com.gustavo.service.EstoqueService;
 import com.gustavo.service.FuncionarioService;
 
@@ -38,7 +38,7 @@ public class EstoqueController {
 	}
 	@PatchMapping("atualizarEstoque/{idEstoque}")
 	public ResponseEntity<Estoque> atualizarEstoque(@RequestBody Estoque estoque, @PathVariable String nomeEstoque){
-		Estoque atualizarEstoque = estoqueservice.atualizarEstoque(estoque , nomeEstoque);
+		Estoque atualizarEstoque = EstoqueService.atualizarEstoque(estoque , nomeEstoque);
 		
 		return ResponseEntity.ok(atualizarEstoque);
 	}

@@ -1,4 +1,4 @@
-package com.gustavo.findCar;
+package com.gustavo.domains;
 
 public class Estoque {
 
