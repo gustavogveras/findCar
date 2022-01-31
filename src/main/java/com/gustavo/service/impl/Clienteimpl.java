@@ -1,26 +1,28 @@
 package com.gustavo.service.impl;
 
 import com.gustavo.domains.Cliente;
+import com.gustavo.repository.ClienteRepository;
 import com.gustavo.service.ClienteService;
 
 public class Clienteimpl implements ClienteService {
 
+	private ClienteRepository clienteRepository;
+	
 	@Override
 	public Cliente cadastrarCliente(Cliente cliente) {
-	System.out.println(cliente);
-		
-		return (cliente);
+		Cliente clientecadastrado = ClienteRepository.save(cliente);
+		return (clientecadastrado);
 	}
 
 	@Override
 	public Cliente obterCliente(long id)  {
-		Cliente obter = new Cliente();		
-		return obter;
+		Cliente clienteobtido = ClienteRepository.findById(id).get();		
+		return clienteobtido;
 	}
 	
 	@Override
 	public void deletarCliente(Long id) {
-		
+		ClienteRepository.deleteById(id);
 	}
 
 	
