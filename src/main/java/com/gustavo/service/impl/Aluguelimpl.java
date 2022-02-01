@@ -1,5 +1,6 @@
 package com.gustavo.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gustavo.domains.Aluguel;
@@ -8,23 +9,24 @@ import com.gustavo.service.AluguelService;
 @Service
 public class Aluguelimpl implements AluguelService {
 
+	@Autowired
 	private AluguelRepository aluguelRepository;
 	
 	@Override
 	public Aluguel cadastrarAluguel(Aluguel aluguel)  {
-		Aluguel aluguelCadastrado = AluguelRepository.save(aluguel);
+		Aluguel aluguelCadastrado = aluguelRepository.save(aluguel);
 		return aluguelCadastrado;
 	}
 
 	@Override
-	public Aluguel obterAluguel(long idAluguel) {
-		Aluguel aluguelobtido = AluguelRepository.findById(idAluguel).get();		
+	public Aluguel obterAluguel(Long idAluguel) {
+		Aluguel aluguelobtido = aluguelRepository.findById(idAluguel).get();		
 		return aluguelobtido;
 	}
 	
 	@Override
 	public void  deletarAluguel(Long idAluguel) {
-		AluguelRepository.deleteById(idAluguel);		
+		aluguelRepository.deleteById(idAluguel);		
 	}
 	
 

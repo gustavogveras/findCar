@@ -35,7 +35,7 @@ public class FuncionarioController {
 	}
 	@PatchMapping("atualizarFuncionario/{idFuncionario}")
 	public ResponseEntity<Funcionario> atualizarFuncionario(@RequestBody Funcionario funcionario, @PathVariable long idFuncionario){
-		Funcionario atualizarFuncionario = FuncionarioService.atualizarFuncionario(funcionario, idFuncionario);
+		Funcionario atualizarFuncionario = funcionarioservice.atualizarFuncionario(funcionario, idFuncionario);
 		
 		return ResponseEntity.ok(atualizarFuncionario);
 	}

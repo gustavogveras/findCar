@@ -1,10 +1,7 @@
 package com.gustavo.service;
 
-import org.springframework.stereotype.Service;
-
 import com.gustavo.domains.Cliente;
-import com.gustavo.domains.Funcionario;
-@Service
+
 public interface ClienteService {
 
 	public Cliente cadastrarCliente (Cliente cliente); 

@@ -1,11 +1,7 @@
 package com.gustavo.service;
 
-import org.springframework.stereotype.Service;
-
 import com.gustavo.domains.Estoque;
-import com.gustavo.domains.Funcionario;
 
-@Service
 public interface EstoqueService {
 
 	public Estoque cadastrarEstoque (Estoque estoque);

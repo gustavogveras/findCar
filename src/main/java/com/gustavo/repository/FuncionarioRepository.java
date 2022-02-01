@@ -8,5 +8,4 @@ import com.gustavo.domains.Funcionario;
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
-	
 }
