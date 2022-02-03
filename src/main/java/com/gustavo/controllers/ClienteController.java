@@ -13,21 +13,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gustavo.domains.Cliente;
 import com.gustavo.domains.Funcionario;
+import com.gustavo.dto.request.ClienteRequest;
+import com.gustavo.dto.response.ClienteResponse;
+import com.gustavo.repository.ClienteRepository;
 import com.gustavo.service.ClienteService;
 import com.gustavo.service.FuncionarioService;
 @RestController
 @RequestMapping("/Cliente")
 public class ClienteController {
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	@Autowired
 	private ClienteService clienteservice;
 
 	@PostMapping
-	public ResponseEntity<Cliente> cadastrarCliente (@RequestBody Cliente cliente) {
+	public ResponseEntity<ClienteRequest> cadastrarCliente (@RequestBody ClienteRequest clienteRequest) {
 		
-		Cliente cadastrarCliente = clienteservice.cadastrarCliente(cliente);
+		ClienteService clientecadastrado = clienteservice;
 		
-		return ResponseEntity.created(null).body(cadastrarCliente);
+		return new ResponseEntity<>(ClienteResponse(clientecadastrado));
 	}
 	@GetMapping("obterCliente/{id}")
 	public ResponseEntity<Cliente> obterCliente (@PathVariable long id) {

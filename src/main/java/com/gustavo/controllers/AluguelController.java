@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gustavo.domains.Aluguel;
 import com.gustavo.domains.Cliente;
+import com.gustavo.dto.request.PostAluguelRequest;
+import com.gustavo.dto.response.PostAluguelResponse;
 import com.gustavo.service.AluguelService;
 import com.gustavo.service.ClienteService;
 
@@ -23,9 +25,9 @@ public class AluguelController {
 	@Autowired
 	private AluguelService aluguelservice;
 	@PostMapping
-	public ResponseEntity<Aluguel> cadastrarAluguel (@RequestBody Aluguel aluguel) {
+	public ResponseEntity<Aluguel> cadastrarAluguel (@RequestBody PostAluguelRequest postaluguelrequest) {
 		
-		Aluguel cadastrarAluguel = aluguelservice.cadastrarAluguel(aluguel);
+		Aluguel cadastrarAluguel = aluguelservice.cadastrarAluguel(postaluguelrequest);
 		
 		return ResponseEntity.created(null).body(cadastrarAluguel);
 	}
