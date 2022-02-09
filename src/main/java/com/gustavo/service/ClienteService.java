@@ -1,12 +1,10 @@
 package com.gustavo.service;
 
 import com.gustavo.domains.Cliente;
-import com.gustavo.dto.request.ClienteRequest;
-import com.gustavo.dto.response.ClienteResponse;
 
 public interface ClienteService {
 
-	public ClienteResponse cadastrarCliente (ClienteRequest clienteRequest); 
+	public Cliente cadastrarCliente (Cliente cliente); 
 	
 	public Cliente obterCliente (long id);
 	
@@ -16,6 +14,5 @@ public interface ClienteService {
 	}
 	
 	public void deletarCliente (Long id);
-
 	
 }

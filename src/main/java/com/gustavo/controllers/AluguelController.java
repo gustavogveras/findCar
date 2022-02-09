@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gustavo.domains.Aluguel;
 import com.gustavo.domains.Cliente;
-import com.gustavo.dto.request.PostAluguelRequest;
-import com.gustavo.dto.response.PostAluguelResponse;
+import com.gustavo.dto.AluguelRequest;
 import com.gustavo.service.AluguelService;
 import com.gustavo.service.ClienteService;
+
+import com.gustavo.dto.AluguelResponse;
 
 @RestController
 @RequestMapping("/aluguel")
@@ -24,22 +25,49 @@ public class AluguelController {
 
 	@Autowired
 	private AluguelService aluguelservice;
+	
 	@PostMapping
-	public ResponseEntity<Aluguel> cadastrarAluguel (@RequestBody PostAluguelRequest postaluguelrequest) {
+	public ResponseEntity<AluguelResponse> cadastrarAluguel (@RequestBody AluguelRequest aluguelRequest) {
+		Aluguel aluguel = new Aluguel();
+		aluguel.setId(aluguelRequest.getIdAluguel());
+		aluguel.setNumreserva(aluguelRequest.getNumreserva());
 		
-		Aluguel cadastrarAluguel = aluguelservice.cadastrarAluguel(postaluguelrequest);
+		Aluguel aluguelcadastrado = aluguelservice.cadastrarAluguel(aluguel);
 		
-		return ResponseEntity.created(null).body(cadastrarAluguel);
+		AluguelResponse aluguelResponse = new AluguelResponse();
+		aluguelResponse.setId(aluguelcadastrado.getIdAluguel());
+		aluguelResponse.setNumreserva(aluguelcadastrado.getNumreserva());
+		
+		return ResponseEntity.created(null).body(aluguelResponse);
 	}
 	@GetMapping("obterAluguel/{idAluguel}")
-	public ResponseEntity<Aluguel> obterAluguel (@PathVariable long idAluguel) {
-				
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<AluguelResponse> obterAluguel (@PathVariable AluguelRequest aluguelRequest) {
+		Aluguel aluguel = new Aluguel();
+		aluguel.setId(aluguelRequest.getIdAluguel());
+		aluguel.setNumreserva(aluguelRequest.getNumreserva());
+		
+		Aluguel aluguelobtido = aluguelservice.obterAluguel(aluguel);
+		
+		AluguelResponse aluguelResponse = new AluguelResponse();
+		aluguelResponse.setId(aluguelobtido.getIdAluguel());
+		aluguelResponse.setNumreserva(aluguelobtido.getNumreserva());
+		
+		return ResponseEntity.created(null).body(aluguelResponse);
 	}
 	@PatchMapping("atualizarAluguel/{idAluguel}")
-	public ResponseEntity<Long> atualizarAluguel(@RequestBody Aluguel aluguel, @PathVariable long idAluguel){
-		ResponseEntity<Long> atualizarAluguel = atualizarAluguel (aluguel, idAluguel);
-		return atualizarAluguel;
+	public ResponseEntity<AluguelResponse> atualizarAluguel(@RequestBody AluguelRequest aluguelRequest, @PathVariable long idAluguel){
+		Aluguel aluguel = new Aluguel();
+		aluguel.setId(aluguelRequest.getIdAluguel());
+		aluguel.setNumreserva(aluguelRequest.getNumreserva());
+		
+		Aluguel aluguelatualizado = aluguelservice.cadastrarAluguel(aluguel);
+		
+		AluguelResponse aluguelResponse = new AluguelResponse();
+		aluguelResponse.setId(aluguelatualizado.getIdAluguel());
+		aluguelResponse.setNumreserva(aluguelatualizado.getNumreserva());
+		
+		return ResponseEntity.created(null).body(aluguelResponse);
+
 	}
 
 	@DeleteMapping("deletarAluguel/{idAluguel}")

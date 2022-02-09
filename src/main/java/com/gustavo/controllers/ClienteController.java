@@ -13,37 +13,59 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gustavo.domains.Cliente;
 import com.gustavo.domains.Funcionario;
-import com.gustavo.dto.request.ClienteRequest;
-import com.gustavo.dto.response.ClienteResponse;
-import com.gustavo.repository.ClienteRepository;
+import com.gustavo.dto.ClienteRequest;
+import com.gustavo.dto.ClienteResponse;
 import com.gustavo.service.ClienteService;
 import com.gustavo.service.FuncionarioService;
 @RestController
 @RequestMapping("/Cliente")
 public class ClienteController {
-	@Autowired
-	private ClienteRepository clienteRepository;
 	
 	@Autowired
 	private ClienteService clienteservice;
 
 	@PostMapping
-	public ResponseEntity<ClienteRequest> cadastrarCliente (@RequestBody ClienteRequest clienteRequest) {
+	public ResponseEntity<ClienteResponse> cadastrarCliente (@RequestBody ClienteRequest clienteRequest) {
+		Cliente cliente = new Cliente();
+		cliente.setIdcliente(clienteRequest.getIdcliente());
+		cliente.setnomeCliente(clienteRequest.getnomeCliente());
 		
-		ClienteService clientecadastrado = clienteservice;
+		Cliente clientecadastrado = clienteservice.cadastrarCliente(cliente);
 		
-		return new ResponseEntity<>(ClienteResponse(clientecadastrado));
+		ClienteResponse clienteResponse = new ClienteResponse();
+		clienteResponse.setIdcliente(clientecadastrado.getIdcliente()); 
+		clienteResponse.setnomeCliente(clientecadastrado.getnomeCliente());
+		
+		return ResponseEntity.created(null).body(clienteResponse);
 	}
 	@GetMapping("obterCliente/{id}")
-	public ResponseEntity<Cliente> obterCliente (@PathVariable long id) {
-				
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<ClienteResponse> obterCliente (@PathVariable ClienteRequest clienteRequest) {
+		Cliente cliente = new Cliente();
+		cliente.setIdcliente(clienteRequest.getnomeCliente());
+		cliente.setnomeCliente(clienteRequest.getnomeCliente());
+		
+		Cliente clienteobtido = clienteservice.cadastrarCliente(cliente);
+		
+		ClienteResponse clienteResponse = new ClienteResponse();
+		clienteResponse.setIdcliente(clienteobtido.getIdcliente()); 
+		clienteResponse.setnomeCliente(clienteobtido.getnomeCliente());
+		
+		return ResponseEntity.created(null).body(clienteResponse);
+		
 	}
 	@PatchMapping("atualizarCliente/{idCliente}")
-	public ResponseEntity<Long> atualizarCliente(@RequestBody Cliente cliente, @PathVariable long idCliente){
-		long atualizarCliente = ClienteService.atualizarCliente(cliente, idCliente);
+	public ResponseEntity<ClienteResponse> atualizarCliente(@RequestBody ClienteRequest clienteRequest, @PathVariable long idCliente){
+		Cliente cliente = new Cliente();
+		cliente.setIdcliente(clienteRequest.getnomeCliente());
+		cliente.setnomeCliente(clienteRequest.getnomeCliente());
 		
-		return ResponseEntity.ok(atualizarCliente);
+		Cliente clienteatualizado = clienteservice.cadastrarCliente(cliente);
+		
+		ClienteResponse clienteResponse = new ClienteResponse();
+		clienteResponse.setIdcliente(clienteatualizado.getIdcliente()); 
+		clienteResponse.setnomeCliente(clienteatualizado.getnomeCliente());
+		
+		return ResponseEntity.created(null).body(clienteResponse);
 	}
 
 	@DeleteMapping("deletarCliente/{idCliente}")

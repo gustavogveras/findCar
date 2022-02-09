@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gustavo.domains.Funcionario;
+import com.gustavo.dto.FuncionarioRequest;
+import com.gustavo.dto.FuncionarioResponse;
 import com.gustavo.service.FuncionarioService;
 
 @RestController
@@ -22,11 +24,18 @@ public class FuncionarioController {
 	private  FuncionarioService funcionarioservice;
 	
 	@PostMapping
-	public ResponseEntity<Funcionario> cadastrarFuncionario (@RequestBody Funcionario funcionario) {
+	public ResponseEntity<FuncionarioResponse> cadastrarFuncionario (@RequestBody FuncionarioResponse funcionarioResponse) {
+		Funcionario funcionario = new Funcionario();
+		funcionario.setIdFuncionario(funcionario.getIdFuncionario());
+		funcionario.setNomeFuncionario(funcionario.getNomeFuncionario());
 		
-		Funcionario  cadastrarFuncionario = funcionarioservice.cadastrarFuncionario(funcionario);
+		Funcionario  funcionariocadastrado = funcionarioservice.cadastrarFuncionario(funcionario);
 		
-		return ResponseEntity.created(null).body(cadastrarFuncionario);
+		FuncionarioResponse funcionarioResponse = new FuncionarioResponse();
+		funcionarioResponse.setIdFuncionario(funcionariocadastrado.getIdFuncionario());
+		funcionarioResponse.setNomeFuncionario(funcionariocadastrado.getNomeFuncionario());
+		
+		return ResponseEntity.created(null).body(funcionarioResponse);
 	}
 	@GetMapping("obterFuncionario/{id}")
 	public ResponseEntity<Funcionario> obterFuncionario (@PathVariable long id) {

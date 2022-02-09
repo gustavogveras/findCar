@@ -14,5 +14,7 @@ public interface AluguelService {
 	}
 	
 	public void deletarAluguel (Long idAluguel);
+
+	
 	
 }
