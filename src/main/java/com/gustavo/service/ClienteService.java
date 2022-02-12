@@ -1,6 +1,7 @@
 package com.gustavo.service;
 
 import com.gustavo.domains.Cliente;
+import com.gustavo.dto.ClienteRequest;
 
 public interface ClienteService {
 
@@ -14,5 +15,10 @@ public interface ClienteService {
 	}
 	
 	public void deletarCliente (Long id);
+
+	public static Cliente atualizarCliente(ClienteRequest clienteRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

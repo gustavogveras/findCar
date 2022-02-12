@@ -16,13 +16,15 @@ import com.gustavo.domains.Funcionario;
 import com.gustavo.service.EstoqueService;
 import com.gustavo.service.FuncionarioService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/Estoque")
-
+@RequiredArgsConstructor
 public class EstoqueController {
 	
-	@Autowired
-	private  EstoqueService estoqueservice;
+	
+	private final EstoqueService estoqueservice = null;
 	
 	@PostMapping
 	public ResponseEntity<Estoque> cadastrarEstoque (@RequestBody Estoque estoque) {

@@ -4,6 +4,9 @@ import java.util.Objects;
 
 import com.gustavo.domains.Cliente;
 
+import lombok.Data;
+
+@Data
 public class ClienteResponse {
 
 	public Integer idCliente;

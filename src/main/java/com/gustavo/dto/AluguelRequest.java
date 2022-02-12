@@ -4,8 +4,11 @@ import java.util.Objects;
 
 import com.gustavo.domains.Aluguel;
 
-public class AluguelRequest {
+import lombok.Data;
 
+@Data
+public class AluguelRequest {
+	
 	private Long idAluguel;
 	private Integer numreserva;
 

@@ -1,5 +1,7 @@
 package com.gustavo.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,28 +19,34 @@ import com.gustavo.dto.AluguelRequest;
 import com.gustavo.service.AluguelService;
 import com.gustavo.service.ClienteService;
 
+import lombok.RequiredArgsConstructor;
+
 import com.gustavo.dto.AluguelResponse;
+import com.gustavo.dto.exception.IdNotValid;
+import com.gustavo.dto.mappers.MapperAluguelRequestToAluguel;
+import com.gustavo.repository.AluguelRepository;
 
 @RestController
 @RequestMapping("/aluguel")
+@RequiredArgsConstructor
 public class AluguelController {
 
-	@Autowired
-	private AluguelService aluguelservice;
+	
+	private final AluguelService aluguelservice = null;
+	private final AluguelRepository aluguelRepository = null ;
+	private final MapperAluguelRequestToAluguel mapperAluguelRequestToAluguel = null;
 	
 	@PostMapping
-	public ResponseEntity<AluguelResponse> cadastrarAluguel (@RequestBody AluguelRequest aluguelRequest) {
-		Aluguel aluguel = new Aluguel();
-		aluguel.setId(aluguelRequest.getIdAluguel());
-		aluguel.setNumreserva(aluguelRequest.getNumreserva());
-		
-		Aluguel aluguelcadastrado = aluguelservice.cadastrarAluguel(aluguel);
-		
+	public AluguelResponse cadastrarAluguel (AluguelRequest aluguelRequest) {
+		if(aluguelRequest.getIdAluguel().floatValue() <= 5) {
+			throw new IdNotValid ("Id não pode ser menor que 5");
+		}
+		Aluguel aluguelcadastrado = aluguelservice.cadastrarAluguel(aluguelRequest);
+		Aluguel aluguel = mapperAluguelRequestToAluguel.toModel(aluguelRequest);
 		AluguelResponse aluguelResponse = new AluguelResponse();
-		aluguelResponse.setId(aluguelcadastrado.getIdAluguel());
-		aluguelResponse.setNumreserva(aluguelcadastrado.getNumreserva());
+		return aluguelResponse;
 		
-		return ResponseEntity.created(null).body(aluguelResponse);
+		
 	}
 	@GetMapping("obterAluguel/{idAluguel}")
 	public ResponseEntity<AluguelResponse> obterAluguel (@PathVariable AluguelRequest aluguelRequest) {
@@ -47,7 +55,7 @@ public class AluguelController {
 		aluguel.setNumreserva(aluguelRequest.getNumreserva());
 		
 		Aluguel aluguelobtido = aluguelservice.obterAluguel(aluguel);
-		
+				
 		AluguelResponse aluguelResponse = new AluguelResponse();
 		aluguelResponse.setId(aluguelobtido.getIdAluguel());
 		aluguelResponse.setNumreserva(aluguelobtido.getNumreserva());

@@ -14,17 +14,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gustavo.domains.Funcionario;
 import com.gustavo.dto.FuncionarioRequest;
 import com.gustavo.dto.FuncionarioResponse;
+import com.gustavo.dto.exception.IdNotValid;
 import com.gustavo.service.FuncionarioService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/Funcionario")
+@RequiredArgsConstructor
 public class FuncionarioController {
 	
-	@Autowired
-	private  FuncionarioService funcionarioservice;
+	
+	private final FuncionarioService funcionarioservice = null;
 	
 	@PostMapping
 	public ResponseEntity<FuncionarioResponse> cadastrarFuncionario (@RequestBody FuncionarioResponse funcionarioResponse) {
+		Funcionario funcionarioRequest;
+		if(funcionarioRequest.getIdFuncionario().floatValue() <= 5) {
+			throw new IdNotValid ("Id não pode ser menor que 5");
+		}
 		Funcionario funcionario = new Funcionario();
 		funcionario.setIdFuncionario(funcionario.getIdFuncionario());
 		funcionario.setNomeFuncionario(funcionario.getNomeFuncionario());

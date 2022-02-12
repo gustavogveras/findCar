@@ -1,9 +1,11 @@
 package com.gustavo.dto;
 
 import java.util.Objects;
-
 import com.gustavo.domains.Aluguel;
 
+import lombok.Data;
+
+@Data
 public class AluguelResponse {
 
 	private Long idAluguel;

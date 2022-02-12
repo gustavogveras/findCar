@@ -4,6 +4,9 @@ import java.util.Objects;
 
 import com.gustavo.domains.Funcionario;
 
+import lombok.Data;
+
+@Data
 public class FuncionarioRequest {
 
 	private  Long idFuncionario;

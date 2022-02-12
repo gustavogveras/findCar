@@ -2,6 +2,12 @@ package com.gustavo.domains;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+
+import lombok.Data;
+
+@Entity
+@Data
 public class Aluguel {
 
 	private Long idAluguel;
